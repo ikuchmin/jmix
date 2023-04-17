@@ -232,6 +232,16 @@ public final class UiComponentUtils {
         return parent.map(UiComponentUtils::findView).orElse(null);
     }
 
+    @Nullable
+    public static Dialog findDialog(Component component) {
+        if (component instanceof Dialog) {
+            return (Dialog) component;
+        }
+
+        Optional<Component> parent = component.getParent();
+        return parent.map(UiComponentUtils::findDialog).orElse(null);
+    }
+
     /**
      * Focuses component (or its nearest focusable parent).
      *
