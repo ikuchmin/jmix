@@ -19,7 +19,9 @@ package io.jmix.reportsflowui;
 import io.jmix.core.annotation.JmixModule;
 import io.jmix.flowui.FlowuiConfiguration;
 import io.jmix.reports.ReportsConfiguration;
+import io.jmix.reports.util.DataSetFactory;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -30,4 +32,9 @@ import org.springframework.context.annotation.PropertySource;
 @JmixModule(dependsOn = {FlowuiConfiguration.class, ReportsConfiguration.class})
 @PropertySource(name = "io.jmix.reportsflowui", value = "classpath:/io/jmix/reportsflowui/module.properties")
 public class ReportsFlowuiConfiguration {
+
+    @Bean("reportflowui_DataSetFactory")
+    public DataSetFactory dataSetFactory() {
+        return new DataSetFactory();
+    }
 }
