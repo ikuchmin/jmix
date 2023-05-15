@@ -16,10 +16,16 @@
 
 package io.jmix.reportsflowui;
 
+import io.jmix.core.Messages;
+import io.jmix.core.Metadata;
 import io.jmix.core.annotation.JmixModule;
 import io.jmix.flowui.FlowuiConfiguration;
+import io.jmix.flowui.UiComponents;
+import io.jmix.flowui.model.DataComponents;
 import io.jmix.reports.ReportsConfiguration;
 import io.jmix.reports.util.DataSetFactory;
+import io.jmix.security.constraint.PolicyStore;
+import io.jmix.security.constraint.SecureOperations;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -36,5 +42,14 @@ public class ReportsFlowuiConfiguration {
     @Bean("reportflowui_DataSetFactory")
     public DataSetFactory dataSetFactory() {
         return new DataSetFactory();
+    }
+
+    @Bean("report_CrossTabOrientationDataGridDecorator")
+    public CrossTabDataGridDecorator crossTabDataGridDecorator(DataSetFactory dataSetFactory, UiComponents uiComponents,
+                                                               SecureOperations secureOperations,
+                                                               PolicyStore policyStore, Metadata metadata,
+                                                               DataComponents dataComponents, Messages messages) {
+        return new CrossTabDataGridDecorator(dataSetFactory, uiComponents, secureOperations, policyStore, metadata,
+                dataComponents, messages);
     }
 }
