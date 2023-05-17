@@ -67,7 +67,13 @@ public class CrossTabDataGridDecorator {
             TypedTextField<String> field = uiComponents.create(TypedTextField.class);
             field.setValue(entity.getName() == null ? field.getEmptyValue() : entity.getName());
             field.setWidthFull();
-            field.addValueChangeListener(valueChanged -> entity.setName(valueChanged.getValue()));
+            field.addValueChangeListener(valueChanged -> {
+                entity.setName(valueChanged.getValue());
+
+                // Avoiding bug with not selected edited row
+                dataSetsDc.setItem(entity);
+                dataSetsDataGrid.select(entity);
+            });
 
             InstanceContainer<DataSet> instanceContainer = dataComponents.createInstanceContainer(DataSet.class);
             instanceContainer.setItem(entity);
